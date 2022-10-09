@@ -1,6 +1,7 @@
 FRONT_END_BINARY=frontApp
 AUTH_BINARY=authApp
 SUPPLIER_BINARY=supplierApp
+LOGGER_BINARY=loggerApp
 
 ## up: starts all containers in the background without forcing build
 up:
@@ -9,7 +10,7 @@ up:
 	@echo "Docker images started!"
 
 ## up_build: stops docker-compose (if running), builds all projects and starts docker compose
-up_build: build_auth build_supplier
+up_build: build_auth build_supplier build_logger
 	@echo "Stopping docker images (if running...)"
 	docker-compose down
 	@echo "Building (when required) and starting docker images..."
@@ -38,6 +39,12 @@ build_supplier:
 build_auth:
 	@echo "Building authentication binary..."
 	cd ../authentication-service && env GOOS=linux CGO_ENABLED=0 go build -o ${AUTH_BINARY} ./cmd/api
+	@echo "Done!"
+
+## build_broker: builds the broker binary as a linux executable
+build_broker:
+	@echo "Building logger binary..."
+	cd ../logger-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LOGGER_BINARY} ./cmd/api
 	@echo "Done!"
 
 ## build_front: builds the frone end binary
