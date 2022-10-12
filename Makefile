@@ -41,12 +41,6 @@ build_auth:
 	cd ../authentication-service && env GOOS=linux CGO_ENABLED=0 go build -o ${AUTH_BINARY} ./cmd/api
 	@echo "Done!"
 
-## build_broker: builds the broker binary as a linux executable
-build_broker:
-	@echo "Building logger binary..."
-	cd ../logger-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LOGGER_BINARY} ./cmd/api
-	@echo "Done!"
-
 ## build_front: builds the frone end binary
 build_front:
 	@echo "Building front end binary..."
